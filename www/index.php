@@ -6,8 +6,10 @@
 
     <h1 align = 'center'>Parcial Servidores: Listado de Estudiantes</h1>
 
-    <table align = 'center' border = '2'>        
-    <?php 
+    <table align = 'center' border = '2'>
+      
+      
+   <?php 
         try {
 
             $data_source = '';
@@ -53,6 +55,24 @@
                 $redis->set($cache_key, serialize($data)); 
                 $redis->expire($cache_key, 10);        
            }
+          
+           echo "<tr><td colspan = '4' align = 'center'><h2>$data_source</h2></td></tr>";
+           echo "<tr><th>ID</th><th>Código</th><th>Nombre</th><th>Apellido</th></tr>";
+
+           foreach ($data as $record) {
+              echo '<tr>';
+              echo '<td>' . $record['student_id'] . '</td>';
+              echo '<td>' . $record['student_code'] . '</td>';
+              echo '<td>' . $record['first_name'] . '</td>';
+              echo '<td>' . $record['last_name']  . '</td>';                     
+              echo '</tr>'; 
+           }              
+
+
+        } catch (PDOException $e) {
+            echo 'Error en BD. ' . $e->getMessage();
+        }
+   ?>
 
     </table>
   </body>
