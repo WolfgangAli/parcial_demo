@@ -28,3 +28,16 @@ services:
             - persistent:/var/lib/mysql
         networks:
             - default    
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links: 
+            - db:db
+            - redis
+        ports:
+            - 8001:80
+        environment:
+            MYSQL_USER: testuser
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password 
+            
+    
